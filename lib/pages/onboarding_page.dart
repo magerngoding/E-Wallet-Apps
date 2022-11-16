@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_wallet/pages/sign_in_page.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -133,7 +134,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SignInPage(),
+                                    ),
+                                  );
+                                },
                                 child: Text(
                                   'Sign In',
                                   style: greyTextStyle.copyWith(
