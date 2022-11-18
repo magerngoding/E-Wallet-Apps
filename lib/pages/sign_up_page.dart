@@ -5,8 +5,8 @@ import 'package:e_wallet/widgets/button.dart';
 import 'package:e_wallet/widgets/form.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           Text(
-            'Sign In &\nGrow Your Finance',
+            'Join Us to Unlock\nYour Growth',
             style: blackTextStyle.copyWith(
               fontSize: 20,
               fontWeight: semiBold,
@@ -49,6 +49,11 @@ class SignInPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Note : FULL NAME INPUT
+                CustomeFormField(title: 'Full Name'),
+                SizedBox(
+                  height: 16,
+                ),
                 // Note : EMAIL INPUT
                 CustomeFormField(title: 'Email Address'),
                 SizedBox(
@@ -59,30 +64,21 @@ class SignInPage extends StatelessWidget {
                   title: 'Password',
                   obscureText: true,
                 ),
-                SizedBox(
-                  height: 8,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Forgot Password',
-                    style: blueTextStyle,
-                  ),
-                ),
+
                 SizedBox(
                   height: 30,
                 ),
                 CustomeFilledButton(
-                  title: 'Sign In',
+                  title: 'Continue',
                   onPressed: () {},
                 ),
                 SizedBox(
                   height: 50,
                 ),
                 CustomeTextButton(
-                  title: 'Create New Account',
+                  title: 'Sign In',
                   onPressed: () {
-                    Navigator.pushNamed(context, '/sign-up');
+                    Navigator.pushNamed(context, '/sign-in');
                   },
                 ),
               ],
