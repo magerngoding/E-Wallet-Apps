@@ -5,8 +5,8 @@ import 'package:e_wallet/widgets/button.dart';
 import 'package:e_wallet/widgets/form.dart';
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignUpSetProfilePage extends StatelessWidget {
+  const SignUpSetProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,41 +47,61 @@ class SignUpPage extends StatelessWidget {
               color: whiteColor,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Note : FULL NAME INPUT
-                CustomeFormField(title: 'Full Name'),
+                // Container(
+                //   width: 120,
+                //   height: 120,
+                //   decoration: BoxDecoration(
+                //     shape: BoxShape.circle,
+                //     color: lightBackgroundColor,
+                //   ),
+                //   child: Center(
+                //     child: Image.asset(
+                //       'assets/icon_upload.png',
+                //       width: 32,
+                //     ),
+                //   ),
+                // ),
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/img_profile.png'),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 16,
                 ),
-                // Note : EMAIL INPUT
-                CustomeFormField(title: 'Email Address'),
-                SizedBox(
-                  height: 16,
+                Text(
+                  'Siraj Hafizh',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                  ),
                 ),
-                // Note : PASSWORD INPUT
+                SizedBox(
+                  height: 30,
+                ),
                 CustomeFormField(
-                  title: 'Password',
+                  title: 'Set PIN (6 digit number)',
                   obscureText: true,
                 ),
-
                 SizedBox(
                   height: 30,
                 ),
                 CustomeFilledButton(
                   title: 'Continue',
                   onPressed: () {
-                    Navigator.pushNamed(context, '/sign-up-set-profile');
+                    Navigator.pushNamed(context, '/sign-up-set-ktp');
                   },
                 ),
                 SizedBox(
                   height: 50,
-                ),
-                CustomeTextButton(
-                  title: 'Sign In',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/sign-in');
-                  },
                 ),
               ],
             ),

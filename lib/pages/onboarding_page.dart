@@ -106,7 +106,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                             CustomeFilledButton(
                               title: 'Get Started',
                               onPressed: () {
-                                Navigator.pushNamed(context, '/sign-up');
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, '/sign-up', (route) => false);
                               },
                             ),
                             SizedBox(
@@ -115,7 +116,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                             CustomeTextButton(
                               title: 'Sign in',
                               onPressed: () {
-                                Navigator.pushNamed(context, '/sign-in');
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, '/sign-in', (route) => false);
                               },
                             )
                           ],
