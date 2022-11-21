@@ -63,17 +63,6 @@ class SignUpSetKtpPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Container(
-                //   width: 120,
-                //   height: 120,
-                //   decoration: BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     image: DecorationImage(
-                //       fit: BoxFit.cover,
-                //       image: AssetImage('assets/img_profile.png'),
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   height: 16,
                 ),
@@ -84,7 +73,6 @@ class SignUpSetKtpPage extends StatelessWidget {
                     fontWeight: medium,
                   ),
                 ),
-
                 SizedBox(
                   height: 50,
                 ),
