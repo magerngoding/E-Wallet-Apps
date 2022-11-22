@@ -80,6 +80,8 @@ class HomePage extends StatelessWidget {
         ),
         children: [
           buildProfile(),
+          buildWalletCard(),
+          buildLevel(),
         ],
       ),
     );
@@ -140,6 +142,110 @@ class HomePage extends StatelessWidget {
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget buildWalletCard() {
+    return Container(
+      width: double.infinity,
+      height: 220,
+      margin: EdgeInsets.only(top: 30),
+      padding: EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/img_bgcard.png'),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Cahya Oktaviani',
+            style: whiteTextStyle.copyWith(
+              fontSize: 18,
+              fontWeight: medium,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            '**** **** **** 4646',
+            style: whiteTextStyle.copyWith(
+              fontSize: 18,
+              fontWeight: medium,
+              letterSpacing: 6,
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          // Kalo font size 14 dan fonweight REGULAR itu sudah settingan default
+          Text(
+            'Balance',
+            style: whiteTextStyle,
+          ),
+          Text(
+            'Rp. 12.500',
+            style: whiteTextStyle.copyWith(
+              fontSize: 24,
+              fontWeight: semiBold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLevel() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: whiteColor,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                'Level 1',
+                style: blackTextStyle.copyWith(
+                  fontWeight: medium,
+                ),
+              ),
+              Spacer(),
+              Text(
+                '55%',
+                style: greenTextStyle.copyWith(
+                  fontWeight: semiBold,
+                ),
+              ),
+              Text(
+                'of Rp.20.000',
+                style: blackTextStyle.copyWith(
+                  fontWeight: semiBold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(55),
+            child: LinearProgressIndicator(
+              minHeight: 5,
+              value: 0.55,
+              valueColor: AlwaysStoppedAnimation(greenColor),
+              backgroundColor: lightBackgroundColor,
+            ),
+          ),
         ],
       ),
     );
