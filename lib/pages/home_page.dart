@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:e_wallet/shared/theme.dart';
+import 'package:e_wallet/widgets/home_lates_transaction_item.dart';
 import 'package:e_wallet/widgets/home_services_item.dart';
+import 'package:e_wallet/widgets/home_user_item.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -84,6 +86,8 @@ class HomePage extends StatelessWidget {
           buildWalletCard(),
           buildLevel(),
           buildServices(),
+          buildLatesTransactions(),
+          buildSendAgain(),
         ],
       ),
     );
@@ -293,6 +297,115 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
               ),
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildLatesTransactions() {
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Lates Transactions',
+            style: blackTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: semiBold,
+            ),
+          ),
+          SizedBox(
+            height: 14,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 14,
+            ),
+            padding: EdgeInsets.all(22),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: whiteColor,
+            ),
+            child: Column(
+              children: [
+                HomeLatesTransactionItem(
+                  iconUrl: 'assets/icon_transaction_cat1.png',
+                  title: 'Top Up',
+                  time: 'Yesterday',
+                  value: '+ 450.000',
+                ),
+                HomeLatesTransactionItem(
+                  iconUrl: 'assets/icon_transaction_cat2.png',
+                  title: 'Cashback',
+                  time: 'Sep 11',
+                  value: '+ 22.000',
+                ),
+                HomeLatesTransactionItem(
+                  iconUrl: 'assets/icon_transaction_cat3.png',
+                  title: 'Withdraw',
+                  time: 'Sep 2',
+                  value: '- 5.000',
+                ),
+                HomeLatesTransactionItem(
+                  iconUrl: 'assets/icon_transaction_cat4.png',
+                  title: 'Transfer',
+                  time: 'Aug 27',
+                  value: '- 123.500',
+                ),
+                HomeLatesTransactionItem(
+                  iconUrl: 'assets/icon_transaction_cat5.png',
+                  title: 'Electric',
+                  time: 'Feb 18',
+                  value: '- 12.300.000',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSendAgain() {
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Send Again',
+            style: blackTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: semiBold,
+            ),
+          ),
+          SizedBox(
+            height: 14,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                HomeUserItem(
+                  imageUrl: 'assets/img_friend1.png',
+                  username: 'yuanita',
+                ),
+                HomeUserItem(
+                  imageUrl: 'assets/img_friend2.png',
+                  username: 'jani',
+                ),
+                HomeUserItem(
+                  imageUrl: 'assets/img_friend3.png',
+                  username: 'urip',
+                ),
+                HomeUserItem(
+                  imageUrl: 'assets/img_friend4.png',
+                  username: 'masa',
+                ),
+              ],
+            ),
           )
         ],
       ),
