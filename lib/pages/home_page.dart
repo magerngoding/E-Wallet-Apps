@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:e_wallet/shared/theme.dart';
+import 'package:e_wallet/widgets/home_services_item.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -82,6 +83,7 @@ class HomePage extends StatelessWidget {
           buildProfile(),
           buildWalletCard(),
           buildLevel(),
+          buildServices(),
         ],
       ),
     );
@@ -246,6 +248,52 @@ class HomePage extends StatelessWidget {
               backgroundColor: lightBackgroundColor,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildServices() {
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Do Something',
+            style: blackTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: semiBold,
+            ),
+          ),
+          SizedBox(
+            height: 14,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HomeServicesItem(
+                iconUrl: 'assets/icon_topup.png',
+                title: 'Top Up',
+                onTap: () {},
+              ),
+              HomeServicesItem(
+                iconUrl: 'assets/icon_send.png',
+                title: 'Send',
+                onTap: () {},
+              ),
+              HomeServicesItem(
+                iconUrl: 'assets/icon_withdraw.png',
+                title: 'Withdraw',
+                onTap: () {},
+              ),
+              HomeServicesItem(
+                iconUrl: 'assets/icon_more.png',
+                title: 'More',
+                onTap: () {},
+              ),
+            ],
+          )
         ],
       ),
     );
