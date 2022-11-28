@@ -3,6 +3,9 @@
 import 'package:e_wallet/pages/home_page.dart';
 import 'package:e_wallet/pages/onboarding_page.dart';
 import 'package:e_wallet/pages/pin_page.dart';
+import 'package:e_wallet/pages/profile_edit_page.dart';
+import 'package:e_wallet/pages/profile_edit_pin_page.dart';
+import 'package:e_wallet/pages/profile_edit_success_page.dart';
 import 'package:e_wallet/pages/profile_page.dart';
 import 'package:e_wallet/pages/sign_in_page.dart';
 import 'package:e_wallet/pages/sign_up_page.dart';
@@ -48,6 +51,9 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
         '/pin': (context) => PinPage(),
+        '/profile-edit': (context) => ProfileEditPage(),
+        '/profile-edit-pin': (context) => ProfileEditPinPage(),
+        '/profile-edit-success': (context) => ProfileEditSuccessPage(),
       },
     );
   }

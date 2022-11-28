@@ -20,7 +20,9 @@ class _PinPageState extends State<PinPage> {
         pinController.text = pinController.text + number;
       });
     }
-    print(pinController.text);
+    if (pinController.text == '123123') {
+      Navigator.pop(context, true);
+    }
   }
 
   deletePin() {
@@ -30,7 +32,6 @@ class _PinPageState extends State<PinPage> {
             pinController.text.substring(0, pinController.text.length - 1);
       });
     }
-    print(pinController.text);
   }
 
   @override
