@@ -2,7 +2,6 @@
 
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
-import 'package:e_wallet/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class SignUpSetKtpPage extends StatelessWidget {

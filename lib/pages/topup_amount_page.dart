@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_build_context_synchronously
 
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TopUpAmountPage extends StatefulWidget {
   const TopUpAmountPage({super.key});
@@ -14,6 +16,27 @@ class TopUpAmountPage extends StatefulWidget {
 class _TopUpAmountPageState extends State<TopUpAmountPage> {
   final TextEditingController amountController =
       TextEditingController(text: '0');
+
+  @override
+  void initState() {
+    super.initState();
+
+    amountController.addListener(() {
+      final text = amountController.text;
+
+      amountController.value = amountController.value.copyWith(
+        text: NumberFormat.currency(
+          locale: 'id',
+          decimalDigits: 0,
+          symbol: '',
+        ).format(
+          int.parse(
+            text.replaceAll('.', ''),
+          ),
+        ),
+      );
+    });
+  }
 
   addAmount(String number) {
     if (amountController.text == '0') {
@@ -188,7 +211,14 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
           ),
           CustomeFilledButton(
             title: 'Checkout Now',
-            onPressed: () {},
+            onPressed: () async {
+              if (await Navigator.pushNamed(context, '/pin') == true) {
+                await launch('https://demo.midtrans.com/');
+
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/topup-success', (route) => false);
+              }
+            },
           ),
           SizedBox(
             height: 25,
