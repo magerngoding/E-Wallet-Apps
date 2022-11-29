@@ -13,6 +13,8 @@ import 'package:e_wallet/pages/sign_up_set_ktp.dart';
 import 'package:e_wallet/pages/sign_up_set_profile.dart';
 import 'package:e_wallet/pages/splash_page.dart';
 import 'package:e_wallet/pages/sign-up-success-page.dart';
+import 'package:e_wallet/pages/topup_amount_page.dart';
+import 'package:e_wallet/pages/topup_page.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
         '/profile-edit': (context) => ProfileEditPage(),
         '/profile-edit-pin': (context) => ProfileEditPinPage(),
         '/profile-edit-success': (context) => ProfileEditSuccessPage(),
+        '/topup': (context) => TopupPage(),
+        '/topup-amount': (context) => TopUpAmountPage(),
       },
     );
   }
