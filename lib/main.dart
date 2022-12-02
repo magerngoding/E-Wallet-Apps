@@ -17,6 +17,8 @@ import 'package:e_wallet/pages/topup_amount_page.dart';
 import 'package:e_wallet/pages/topup_page.dart';
 import 'package:e_wallet/pages/topup_success.dart';
 import 'package:e_wallet/pages/transfer_page.dart';
+import 'package:e_wallet/pages/transfer_success_page.dart';
+import 'package:e_wallet/pages/trasfer_amount_page.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -62,6 +64,8 @@ class MyApp extends StatelessWidget {
         '/topup-amount': (context) => TopUpAmountPage(),
         '/topup-success': (context) => TopupSuccessPage(),
         '/transfer': (context) => TransferPage(),
+        '/transfer-amount': (context) => TransferAmountPage(),
+        '/transfer-success': (context) => TransferSuccessPage(),
       },
     );
   }
