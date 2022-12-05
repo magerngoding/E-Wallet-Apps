@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/pages/data_provider_page.dart';
 import 'package:e_wallet/pages/home_page.dart';
 import 'package:e_wallet/pages/onboarding_page.dart';
 import 'package:e_wallet/pages/pin_page.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
         '/transfer': (context) => TransferPage(),
         '/transfer-amount': (context) => TransferAmountPage(),
         '/transfer-success': (context) => TransferSuccessPage(),
+        '/data-provider': (context) => DataProviderPage(),
       },
     );
   }
