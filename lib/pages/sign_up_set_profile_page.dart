@@ -1,15 +1,19 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/sign_up_form_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:e_wallet/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class SignUpSetProfilePage extends StatelessWidget {
-  const SignUpSetProfilePage({super.key});
+  final SignUpFormModel data;
+
+  SignUpSetProfilePage({required this.data});
 
   @override
   Widget build(BuildContext context) {
+    print(data.toJson());
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.symmetric(
