@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_wallet/models/sign_up_form_model.dart';
 import 'package:e_wallet/services/auth_service.dart';
 import 'package:equatable/equatable.dart';
 

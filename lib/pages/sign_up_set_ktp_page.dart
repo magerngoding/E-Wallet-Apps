@@ -1,11 +1,33 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
+import 'package:e_wallet/models/sign_up_form_model.dart';
+import 'package:e_wallet/shared/shared_method.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class SignUpSetKtpPage extends StatelessWidget {
-  const SignUpSetKtpPage({super.key});
+class SignUpSetKtpPage extends StatefulWidget {
+  final SignUpFormModel data;
+  const SignUpSetKtpPage({
+    required this.data,
+  });
+
+  @override
+  State<SignUpSetKtpPage> createState() => _SignUpSetKtpPageState();
+}
+
+class _SignUpSetKtpPageState extends State<SignUpSetKtpPage> {
+  XFile? selectedImage;
+
+  bool validate() {
+    if (selectedImage == null) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +69,27 @@ class SignUpSetKtpPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: lightBackgroundColor,
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/icon_upload.png',
-                      width: 32,
+                GestureDetector(
+                  onTap: () async {
+                    final image = await selectImage();
+                    setState(() {
+                      selectedImage = image;
+                    });
+                  },
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lightBackgroundColor,
+                      image: selectedImage == null
+                          ? null
+                          : DecorationImage(
+                              fit: BoxFit.cover,
+                              image: FileImage(
+                                File(selectedImage!.path),
+                              ),
+                            ),
                     ),
                   ),
                 ),
@@ -76,7 +108,13 @@ class SignUpSetKtpPage extends StatelessWidget {
                 ),
                 CustomeFilledButton(
                   title: 'Continue',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (validate()) {
+                    } else {
+                      showCustomeSnackbar(
+                          context, 'Gambar tidak boleh kosong!');
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 60,
