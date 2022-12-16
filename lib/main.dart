@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:e_wallet/blocs/auth/auth_bloc.dart';
 import 'package:e_wallet/pages/data_package_page.dart';
 import 'package:e_wallet/pages/data_provider_page.dart';
@@ -13,8 +15,6 @@ import 'package:e_wallet/pages/profile_edit_success_page.dart';
 import 'package:e_wallet/pages/profile_page.dart';
 import 'package:e_wallet/pages/sign_in_page.dart';
 import 'package:e_wallet/pages/sign_up_page.dart';
-import 'package:e_wallet/pages/sign_up_set_ktp_page.dart';
-import 'package:e_wallet/pages/sign_up_set_profile_page.dart';
 import 'package:e_wallet/pages/splash_page.dart';
 import 'package:e_wallet/pages/sign-up-success-page.dart';
 import 'package:e_wallet/pages/topup_amount_page.dart';
@@ -27,7 +27,24 @@ import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const MyApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) {
+        if (host == 'bwabank.my.id') {
+          return true;
+        } else {
+          return false;
+        }
+      };
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

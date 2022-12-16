@@ -23,7 +23,9 @@ String formatCurrency(
     locale: 'id',
     symbol: symbol,
     decimalDigits: 0,
-  ).format(number);
+  ).format(
+    number,
+  );
 }
 
 // Jika menggunakan asyncronous gunakan FUTURE

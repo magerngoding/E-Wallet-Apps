@@ -5,7 +5,7 @@ class UserModel {
   final String? password;
   final String? username;
   final int? verified;
-  final String? profilPicture;
+  final String? profilePicture;
   final int? balance;
   final String? cardNumber;
   final String? pin;
@@ -18,7 +18,7 @@ class UserModel {
     this.password,
     this.username,
     this.verified,
-    this.profilPicture,
+    this.profilePicture,
     this.balance,
     this.cardNumber,
     this.pin,
@@ -31,7 +31,7 @@ class UserModel {
         email: json['email'],
         username: json['username'],
         verified: json['verified'],
-        profilPicture: json['profile_picture'],
+        profilePicture: json['profile_picture'],
         balance: json['balance'],
         cardNumber: json['card_number'],
         pin: json['pin'],
@@ -47,7 +47,7 @@ class UserModel {
     int? balance,
   }) =>
       UserModel(
-        // Yang ada ?? untuk ganti value jika ingin di ganti datanya
+        // Yang ada ?? agar bisa diganti value jika ingin di ganti datanya
         id: id,
         username: username ?? this.username,
         name: name ?? this.name,
@@ -56,7 +56,7 @@ class UserModel {
         password: password ?? this.password,
         balance: balance ?? this.balance,
         verified: verified,
-        profilPicture: profilPicture,
+        profilePicture: profilePicture,
         cardNumber: cardNumber,
         token: token,
       );
