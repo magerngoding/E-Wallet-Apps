@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(),
+          create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
         ),
       ],
       child: MaterialApp(
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => SplashPage(),
+          '/': (context) => SplahPage(),
           '/onboarding': (context) => OnBoardingPage(),
           '/sign-in': (context) => SignInPage(),
           '/sign-up': (context) => SignUpPage(),
