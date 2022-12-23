@@ -28,7 +28,7 @@ class _PinPageState extends State<PinPage> {
     }
 
     if (pinController.text.length == 6) {
-      if (pinController.text == '111111') {
+      if (pinController.text == pin) {
         Navigator.pop(context, true);
       } else {
         setState(() {

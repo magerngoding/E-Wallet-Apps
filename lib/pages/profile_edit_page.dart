@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/user_edit_form_model.dart';
+import 'package:e_wallet/shared/shared_method.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:e_wallet/widgets/form.dart';
@@ -40,64 +42,91 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       appBar: AppBar(
         title: Text('Edit Profile'),
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            padding: EdgeInsets.all(22),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: whiteColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomeFormField(
-                  title: 'Username',
-                  controller: usernameController,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFailed) {
+            showCustomeSnackbar(context, state.e);
+          }
+
+          if (state is AuthSuccess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/profile-edit-success', (route) => false);
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                padding: EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: whiteColor,
                 ),
-                SizedBox(
-                  height: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomeFormField(
+                      title: 'Username',
+                      controller: usernameController,
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomeFormField(
+                      title: 'Full Name',
+                      controller: nameController,
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomeFormField(
+                      title: 'Email Address',
+                      controller: emailController,
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomeFormField(
+                      title: 'Password',
+                      controller: passwordController,
+                      obscureText: true,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    CustomeFilledButton(
+                      title: 'Update Now',
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                              AuthUpdateUser(
+                                UserEditFormModel(
+                                  username: usernameController.text,
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ),
+                              ),
+                            );
+                      },
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                  ],
                 ),
-                CustomeFormField(
-                  title: 'Full Name',
-                  controller: nameController,
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                CustomeFormField(
-                  title: 'Email Address',
-                  controller: emailController,
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                CustomeFormField(
-                  title: 'Password',
-                  controller: passwordController,
-                  obscureText: true,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                CustomeFilledButton(
-                  title: 'Update Now',
-                  onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/profile-edit-success', (route) => false);
-                  },
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
