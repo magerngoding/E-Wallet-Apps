@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/blocs/auth/auth_bloc.dart';
 import 'package:e_wallet/shared/shared_method.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/home_lates_transaction_item.dart';
@@ -7,6 +8,7 @@ import 'package:e_wallet/widgets/home_services_item.dart';
 import 'package:e_wallet/widgets/home_tips_item.dart';
 import 'package:e_wallet/widgets/home_user_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -96,121 +98,141 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildProfile(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 70),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Howdy,',
-                style: greyTextStyle.copyWith(
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Text(
-                'cahyaokt',
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-                  fontWeight: semiBold,
-                ),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/img_profile.png'),
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: whiteColor,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.check_circle,
-                      color: greenColor,
-                      size: 14,
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            margin: EdgeInsets.only(top: 70),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Howdy,',
+                      style: greyTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      state.user.username.toString(),
+                      style: blackTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: state.user.profilePicture == null
+                            ? AssetImage('assets/img_profile.png')
+                            : NetworkImage(
+                                state.user.profilePicture!,
+                              ) as ImageProvider,
+                      ),
+                    ),
+                    child: state.user.verified == 1
+                        ? Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: whiteColor,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check_circle,
+                                  color: greenColor,
+                                  size: 14,
+                                ),
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+        }
+        return Container();
+      },
     );
   }
 
   Widget buildWalletCard() {
-    return Container(
-      width: double.infinity,
-      height: 220,
-      margin: EdgeInsets.only(top: 30),
-      padding: EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/img_bgcard.png'),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Cahya Oktaviani',
-            style: whiteTextStyle.copyWith(
-              fontSize: 18,
-              fontWeight: medium,
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            width: double.infinity,
+            height: 220,
+            margin: EdgeInsets.only(top: 30),
+            padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/img_bgcard.png'),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            '**** **** **** 4646',
-            style: whiteTextStyle.copyWith(
-              fontSize: 18,
-              fontWeight: medium,
-              letterSpacing: 6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  state.user.name.toString(),
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  '**** **** **** ${state.user.cardNumber!.substring(12, 16)}',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                    letterSpacing: 6,
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                // Kalo font size 14 dan fonweight REGULAR itu sudah settingan default
+                Text(
+                  'Balance',
+                  style: whiteTextStyle,
+                ),
+                Text(
+                  formatCurrency(state.user.balance ?? 0),
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 24,
+                    fontWeight: semiBold,
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          // Kalo font size 14 dan fonweight REGULAR itu sudah settingan default
-          Text(
-            'Balance',
-            style: whiteTextStyle,
-          ),
-          Text(
-            formatCurrency(12500),
-            style: whiteTextStyle.copyWith(
-              fontSize: 24,
-              fontWeight: semiBold,
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+        return Container();
+      },
     );
   }
 

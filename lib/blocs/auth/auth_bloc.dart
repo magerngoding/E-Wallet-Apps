@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:e_wallet/models/sign_in_form_model.dart';
 import 'package:e_wallet/models/sign_up_form_model.dart';
 import 'package:e_wallet/models/user_edit_form_model.dart';
@@ -109,6 +107,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
               emit(AuthSuccess(updateUser));
             }
+          } catch (e) {
+            emit(AuthFailed(e.toString()));
+          }
+        }
+
+        if (event is AuthLogout) {
+          try {
+            emit(AuthLoading());
+
+            await AuthService().logout();
+
+            emit(AuthInitial());
           } catch (e) {
             emit(AuthFailed(e.toString()));
           }
