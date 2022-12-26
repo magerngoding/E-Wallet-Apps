@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/blocs/auth/auth_bloc.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/bank_item.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopupPage extends StatelessWidget {
   const TopupPage({super.key});
@@ -30,37 +32,45 @@ class TopupPage extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/img_wallet.png',
-                width: 80,
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '8008 2208 1996',
-                    style: blackTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: medium,
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthSuccess) {
+                return Row(
+                  children: [
+                    Image.asset(
+                      'assets/img_wallet.png',
+                      width: 80,
                     ),
-                  ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    'Siraj Hafizh',
-                    style: greyTextStyle.copyWith(
-                      fontSize: 12,
+                    SizedBox(
+                      width: 16,
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          state.user.cardNumber!.replaceAllMapped(
+                              RegExp(r".{4}"), (match) => "${match.group(0)} "),
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: medium,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Text(
+                          state.user.name.toString(),
+                          style: greyTextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+              return Container();
+            },
           ),
           SizedBox(
             height: 40,
