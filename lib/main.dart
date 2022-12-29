@@ -17,7 +17,6 @@ import 'package:e_wallet/pages/sign_in_page.dart';
 import 'package:e_wallet/pages/sign_up_page.dart';
 import 'package:e_wallet/pages/splash_page.dart';
 import 'package:e_wallet/pages/sign-up-success-page.dart';
-import 'package:e_wallet/pages/topup_amount_page.dart';
 import 'package:e_wallet/pages/topup_page.dart';
 import 'package:e_wallet/pages/topup_success.dart';
 import 'package:e_wallet/pages/transfer_page.dart';
@@ -87,7 +86,6 @@ class MyApp extends StatelessWidget {
           '/profile-edit-pin': (context) => ProfileEditPinPage(),
           '/profile-edit-success': (context) => ProfileEditSuccessPage(),
           '/topup': (context) => TopupPage(),
-          '/topup-amount': (context) => TopUpAmountPage(),
           '/topup-success': (context) => TopupSuccessPage(),
           '/transfer': (context) => TransferPage(),
           '/transfer-amount': (context) => TransferAmountPage(),

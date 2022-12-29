@@ -1,16 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/payment_method_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class BankItem extends StatelessWidget {
-  final String imageUrl;
-  final String title;
+  final PaymentMethodModel paymentMethod;
   final bool isSelected;
 
   BankItem({
-    required this.imageUrl,
-    required this.title,
+    required this.paymentMethod,
     this.isSelected = false,
   });
 
@@ -30,15 +29,15 @@ class BankItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imageUrl,
+          Image.network(
+            paymentMethod.thumbnail.toString(),
             height: 30,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                title,
+                paymentMethod.name.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,

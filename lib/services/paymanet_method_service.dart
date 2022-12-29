@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:e_wallet/models/payment_method_model.dart';
 import 'package:e_wallet/services/auth_service.dart';
+import 'package:e_wallet/shared/shared_values.dart';
 import 'package:http/http.dart' as http;
 
 class PaymentMethodService {
@@ -10,7 +11,7 @@ class PaymentMethodService {
       final token = await AuthService().getToken();
 
       final res = await http.get(
-        Uri.parse('$base64/payment_methods'),
+        Uri.parse('$baseUrl/payment_methods'),
         headers: {
           'Authorization': token,
         },

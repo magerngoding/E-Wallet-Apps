@@ -13,7 +13,7 @@ class PaymentMethodLoading extends PaymentMethodState {}
 
 class PaymentMethodFailed extends PaymentMethodState {
   final String e;
-  PaymentMethodFailed(this.e);
+  const PaymentMethodFailed(this.e);
 
   @override
   // TODO: implement props

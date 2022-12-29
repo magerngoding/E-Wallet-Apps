@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, use_build_context_synchronously
 
+import 'package:e_wallet/models/topup_form_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TopUpAmountPage extends StatefulWidget {
-  const TopUpAmountPage({super.key});
+  final TopupFormModel data;
+
+  TopUpAmountPage({super.key, required this.data});
 
   @override
   State<TopUpAmountPage> createState() => _TopUpAmountPageState();
