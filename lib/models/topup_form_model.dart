@@ -12,7 +12,7 @@ class TopupFormModel {
   TopupFormModel copyWith(
           {String? amount, String? pin, String? paymentMethodCode}) =>
       TopupFormModel(
-        amount: amount ?? this.pin,
+        amount: amount ?? this.amount,
         pin: pin ?? this.pin,
         paymentMethodCode: paymentMethodCode ?? this.paymentMethodCode,
       );

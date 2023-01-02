@@ -14,14 +14,15 @@ class TopupLoading extends TopupState {}
 class TopupFailed extends TopupState {
   final String e;
   const TopupFailed(this.e);
+
+  @override
+  List<Object> get props => [e];
 }
 
 class TopupSuccess extends TopupState {
   final String redirectUrl;
-
   const TopupSuccess(this.redirectUrl);
 
   @override
-  // TODO: implement props
   List<Object> get props => [redirectUrl];
 }

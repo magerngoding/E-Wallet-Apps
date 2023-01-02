@@ -138,7 +138,8 @@ class _TopupPageState extends State<TopupPage> {
                   MaterialPageRoute(
                     builder: (context) => TopUpAmountPage(
                       data: TopupFormModel(
-                          paymentMethodCode: selectedPaymentMethod?.code),
+                        paymentMethodCode: selectedPaymentMethod?.code,
+                      ),
                     ),
                   ),
                 );
