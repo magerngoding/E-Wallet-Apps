@@ -1,19 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/user_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class TransferRecentUserItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String username;
-  final bool isVerified;
+  final UserModel user;
 
   TransferRecentUserItem({
-    required this.imageUrl,
-    this.isVerified = false,
-    required this.name,
-    required this.username,
+    required this.user,
   });
 
   @override
@@ -34,7 +29,9 @@ class TransferRecentUserItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(imageUrl),
+                image: user.profilePicture == null
+                    ? AssetImage('assets/img_profile.png')
+                    : NetworkImage(user.profilePicture!) as ImageProvider,
               ),
             ),
           ),
@@ -42,7 +39,7 @@ class TransferRecentUserItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                user.name.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
@@ -52,7 +49,7 @@ class TransferRecentUserItem extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                '@$username',
+                '@${user.username}',
                 style: greyTextStyle.copyWith(
                   fontSize: 12,
                 ),
@@ -60,7 +57,7 @@ class TransferRecentUserItem extends StatelessWidget {
             ],
           ),
           Spacer(),
-          if (isVerified)
+          if (user.verified == 1)
             Row(
               children: [
                 Icon(

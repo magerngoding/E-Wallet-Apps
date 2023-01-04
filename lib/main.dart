@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:e_wallet/blocs/auth/auth_bloc.dart';
+import 'package:e_wallet/blocs/auth/user/user_bloc.dart';
 import 'package:e_wallet/pages/data_package_page.dart';
 import 'package:e_wallet/pages/data_provider_page.dart';
 import 'package:e_wallet/pages/data_success_page.dart';
@@ -53,7 +54,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
+          create: (context) => AuthBloc()
+            ..add(
+              AuthGetCurrentUser(),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,19 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/user_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class TrasferResultUserItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String username;
-  final bool isVerified;
+  final UserModel user;
   final bool isSelected;
+
   TrasferResultUserItem({
-    required this.imageUrl,
-    this.isVerified = false,
-    required this.name,
-    required this.username,
+    required this.user,
     this.isSelected = false,
   });
 
@@ -42,10 +38,12 @@ class TrasferResultUserItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(imageUrl),
+                image: user.profilePicture == null
+                    ? AssetImage('assets/img_profile.png')
+                    : NetworkImage(user.profilePicture!) as ImageProvider,
               ),
             ),
-            child: isVerified
+            child: user.verified == 1
                 ? Align(
                     alignment: Alignment.topRight,
                     child: Container(
@@ -70,7 +68,7 @@ class TrasferResultUserItem extends StatelessWidget {
             height: 13,
           ),
           Text(
-            name,
+            user.name.toString(),
             style: blackTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -80,7 +78,7 @@ class TrasferResultUserItem extends StatelessWidget {
             height: 2,
           ),
           Text(
-            '@$username',
+            '@${user.username}',
             style: greyTextStyle.copyWith(
               fontSize: 12,
             ),
