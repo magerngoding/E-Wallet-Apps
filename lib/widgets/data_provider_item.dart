@@ -1,16 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/operator_card_model.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class DataProviderItem extends StatelessWidget {
-  final String name;
-  final String imageUrl;
+  final OperatorCardModel operatorCard;
   final bool isSelected;
 
   const DataProviderItem({
-    required this.name,
-    required this.imageUrl,
+    required this.operatorCard,
     this.isSelected = false,
   });
 
@@ -32,15 +31,15 @@ class DataProviderItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imageUrl,
+          Image.network(
+            operatorCard.thumbnail.toString(),
             height: 30,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                name,
+                operatorCard.name.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
@@ -50,7 +49,7 @@ class DataProviderItem extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                'Available',
+                operatorCard.status.toString(),
                 style: greyTextStyle.copyWith(
                   fontSize: 12,
                 ),
