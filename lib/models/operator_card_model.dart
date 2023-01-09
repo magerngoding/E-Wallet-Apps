@@ -5,7 +5,7 @@ class OperatorCardModel {
   final String? name;
   final String? status;
   final String? thumbnail;
-  final List<DataPlantModel>? dataPlants;
+  final List<DataPlanModel>? dataPlants;
 
   OperatorCardModel({
     this.id,
@@ -24,7 +24,7 @@ class OperatorCardModel {
         dataPlants: json['data_plans'] == null
             ? null
             : (json['data_plans'] as List)
-                .map((dataPlan) => DataPlantModel.fromJson(dataPlan))
+                .map((dataPlan) => DataPlanModel.fromJson(dataPlan))
                 .toList(),
       );
 }

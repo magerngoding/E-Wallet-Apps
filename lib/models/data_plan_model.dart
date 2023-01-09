@@ -1,17 +1,17 @@
-class DataPlantModel {
+class DataPlanModel {
   final int? id;
   final String? name;
   final int? price;
   final int? operatorCardId;
 
-  DataPlantModel({
+  DataPlanModel({
     this.id,
     this.name,
     this.price,
     this.operatorCardId,
   });
 
-  factory DataPlantModel.fromJson(Map<String, dynamic> json) => DataPlantModel(
+  factory DataPlanModel.fromJson(Map<String, dynamic> json) => DataPlanModel(
         id: json['id'],
         name: json['name'],
         price: json['price'],
