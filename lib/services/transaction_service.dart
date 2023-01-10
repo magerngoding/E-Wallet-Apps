@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:e_wallet/models/data_plan_form_model.dart';
 import 'package:e_wallet/models/topup_form_model.dart';
+import 'package:e_wallet/models/transaction_model.dart';
 import 'package:e_wallet/models/transfer_form_model.dart';
 import 'package:e_wallet/services/auth_service.dart';
 import 'package:e_wallet/shared/shared_values.dart';
@@ -71,6 +72,31 @@ class TransactionService {
       if (res.statusCode != 200) {
         throw jsonDecode(res.body)['message'];
       }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TransactionModel>> getTransactions() async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.get(
+        Uri.parse('$baseUrl/transactions'),
+        headers: {
+          'Authorization': token,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        return List<TransactionModel>.from(
+          jsonDecode(res.body)['data'].map(
+            (transaction) => TransactionModel.fromJson(transaction),
+          ),
+        ).toList();
+      }
+
+      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }
