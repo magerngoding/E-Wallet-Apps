@@ -1,19 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_wallet/models/transaction_model.dart';
+import 'package:e_wallet/shared/shared_method.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeLatesTransactionItem extends StatelessWidget {
-  final String iconUrl;
-  final String title;
-  final String time;
-  final String value;
+  final TransactionModel transaction;
 
-  HomeLatesTransactionItem({
-    required this.iconUrl,
-    required this.title,
-    required this.time,
-    required this.value,
+  const HomeLatesTransactionItem({
+    required this.transaction,
   });
 
   @override
@@ -22,9 +19,9 @@ class HomeLatesTransactionItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 18),
       child: Row(
         children: [
-          Image.asset(
-            iconUrl,
-            width: 48,
+          Image.network(
+            transaction.transactionType!.thumbnail!,
+            width: 5,
           ),
           SizedBox(
             width: 16,
@@ -34,7 +31,7 @@ class HomeLatesTransactionItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  transaction.transactionType!.name.toString(),
                   style: blackTextStyle.copyWith(
                     fontWeight: medium,
                     fontSize: 16,
@@ -44,7 +41,9 @@ class HomeLatesTransactionItem extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  time,
+                  DateFormat('MMM dd').format(
+                    transaction.createdAt ?? DateTime.now(),
+                  ),
                   style: blackTextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -53,7 +52,10 @@ class HomeLatesTransactionItem extends StatelessWidget {
             ),
           ),
           Text(
-            value,
+            formatCurrency(
+              transaction.amount ?? 0,
+              symbol: transaction.transactionType?.action == 'cr' ? '+ ' : '- ',
+            ),
             style: blackTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,

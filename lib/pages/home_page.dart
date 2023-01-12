@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:e_wallet/blocs/auth/auth_bloc.dart';
+import 'package:e_wallet/blocs/auth/transaction/transaction_bloc.dart';
+import 'package:e_wallet/blocs/auth/user/user_bloc.dart';
+import 'package:e_wallet/models/transfer_form_model.dart';
+import 'package:e_wallet/pages/trasfer_amount_page.dart';
 import 'package:e_wallet/shared/shared_method.dart';
 import 'package:e_wallet/shared/theme.dart';
 import 'package:e_wallet/widgets/home_lates_transaction_item.dart';
@@ -89,7 +93,7 @@ class HomePage extends StatelessWidget {
           buildWalletCard(),
           buildLevel(),
           buildServices(context),
-          buildLatesTransactions(),
+          //   buildLatesTransactions(),
           buildSendAgain(),
           buildFrienlyTips(),
         ],
@@ -343,62 +347,46 @@ class HomePage extends StatelessWidget {
 
   Widget buildLatesTransactions() {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(
+        top: 30,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Lates Transactions',
+            'Latest Transactions',
             style: blackTextStyle.copyWith(
               fontSize: 16,
               fontWeight: semiBold,
             ),
           ),
-          SizedBox(
-            height: 14,
-          ),
           Container(
-            margin: EdgeInsets.only(
+            padding: const EdgeInsets.all(22),
+            margin: const EdgeInsets.only(
               top: 14,
             ),
-            padding: EdgeInsets.all(22),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: whiteColor,
             ),
-            child: Column(
-              children: [
-                HomeLatesTransactionItem(
-                  iconUrl: 'assets/icon_transaction_cat1.png',
-                  title: 'Top Up',
-                  time: 'Yesterday',
-                  value: '+ ${formatCurrency(450000, symbol: '')}',
-                ),
-                HomeLatesTransactionItem(
-                  iconUrl: 'assets/icon_transaction_cat2.png',
-                  title: 'Cashback',
-                  time: 'Sep 11',
-                  value: '+ ${formatCurrency(22000, symbol: '')}',
-                ),
-                HomeLatesTransactionItem(
-                  iconUrl: 'assets/icon_transaction_cat3.png',
-                  title: 'Withdraw',
-                  time: 'Sep 2',
-                  value: '+ ${formatCurrency(5000, symbol: '')}',
-                ),
-                HomeLatesTransactionItem(
-                  iconUrl: 'assets/icon_transaction_cat4.png',
-                  title: 'Transfer',
-                  time: 'Aug 27',
-                  value: '+ ${formatCurrency(123500, symbol: '')}',
-                ),
-                HomeLatesTransactionItem(
-                  iconUrl: 'assets/icon_transaction_cat5.png',
-                  title: 'Electric',
-                  time: 'Feb 18',
-                  value: '+ ${formatCurrency(12300000, symbol: '')}',
-                ),
-              ],
+            child: BlocProvider(
+              create: (context) => TransactionBloc()..add(TransactionGet()),
+              child: BlocBuilder<TransactionBloc, TransactionState>(
+                builder: (context, state) {
+                  if (state is TransactionSuccess) {
+                    return Column(
+                      children: state.transactions.map((transaction) {
+                        return HomeLatesTransactionItem(
+                            transaction: transaction);
+                      }).toList(),
+                    );
+                  }
+
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -422,27 +410,37 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 14,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend1.png',
-                  username: 'yuanita',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend2.png',
-                  username: 'jani',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend3.png',
-                  username: 'urip',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend4.png',
-                  username: 'masa',
-                ),
-              ],
+          BlocProvider(
+            create: (context) => UserBloc()..add(UserGetRecent()),
+            child: BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserSuccess) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: state.users.map((user) {
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TransferAmountPage(
+                                    data: TransferFormModel(
+                                      sendTo: user.username,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: HomeUserItem(user: user));
+                      }).toList(),
+                    ),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
           )
         ],
